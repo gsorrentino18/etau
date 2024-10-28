@@ -86,7 +86,7 @@ def append_to_combined_processes(process, cut_events, vars_to_plot, combined_pro
       "Cuts": {},
       "Generator_weight":  cut_events["Generator_weight"],
       "Weight_TTbar_NNLO": cut_events["Weight_TTbar_NNLO"],
-      "Weight_DY_Zpt":     cut_events["Weight_DY_Zpt_LO"],
+      "Weight_DY_Zpt_LO":     cut_events["Weight_DY_Zpt_LO"],
       "Weight_DY_Zpt_NLO":     cut_events["Weight_DY_Zpt_NLO"],
       "TauSFweight": cut_events["TauSFweight"],
       "MuSFweight":  cut_events["MuSFweight"],
