@@ -5,7 +5,7 @@ from cut_mutau_functions import make_mutau_region, make_mutau_cut
 from cut_etau_functions  import make_etau_region,  make_etau_cut
 from cut_dimuon_functions  import make_dimuon_region, make_dimuon_cut
 from cut_emu_functions  import make_emu_region, make_emu_cut
-from cut_and_study_functions import apply_AR_cut
+#from cut_and_study_functions import apply_AR_cut
 from FF_dictionary import FF_fit_values, FF_mvis_weights
 from calculate_functions import user_exp, user_line
 from plotting_functions import set_vars_to_plot
@@ -299,7 +299,7 @@ def make_emu_DRar_aiso_cut(event_dictionary):
 
 def add_FF_weights(event_dictionary, final_state_mode, jet_mode, semilep_mode, closure=False, bypass=[]):
   # interface to read FF_dictionary
-  unpack_FF_vars = ["Lepton_pt", "HTT_m_vis", "l1_indices", "l2_indices"]
+  unpack_FF_vars = ["Lepton_pt", "HTT_m_vis", "l1_indices", "l2_indices", "Lepton_iso"]
   unpack_FF_vars = (event_dictionary.get(key) for key in unpack_FF_vars)
   to_check = [range(len(event_dictionary["Lepton_pt"])), *unpack_FF_vars]
   FF_weights = []
@@ -307,8 +307,11 @@ def add_FF_weights(event_dictionary, final_state_mode, jet_mode, semilep_mode, c
   if (final_state_mode != "ditau"):
     WJ_fitvals   = FF_fit_values[final_state_mode][jet_mode]["WJ"]
   if bypass != []:  QCD_fitvals, WJ_fitvals = bypass, bypass
-  for i, lep_pt, m_vis, l1_idx, l2_idx in zip(*to_check):
-    m_vis = m_vis if m_vis < 300.0 else 299.0 # exactly 300 breaks index hack below
+  for i, lep_pt, m_vis, l1_idx, l2_idx, lep_iso in zip(*to_check):
+    if (final_state_mode == "etau"):
+      m_vis = m_vis if m_vis < 180.0 else 179.0 
+    else:
+      m_vis = m_vis if m_vis < 300.0 else 299.0
     fakeleg_idx = l1_idx if final_state_mode == "ditau" else l2_idx # mutau/etau is always l2, ditau is always l1
     lepleg_idx  = l2_idx if final_state_mode == "ditau" else l1_idx
     tau_pt = lep_pt[fakeleg_idx]
@@ -317,10 +320,16 @@ def add_FF_weights(event_dictionary, final_state_mode, jet_mode, semilep_mode, c
     hi_val  = 140.0 if final_state_mode == "ditau" else 200
     tau_pt = tau_pt if tau_pt > low_val else low_val
     tau_pt = tau_pt if tau_pt < hi_val else hi_val
-    m_vis_idx = int(m_vis // 10) # hard-coding mvis bins of 10 GeV, starting at 0 and ending at 300 ( // is modulo division )
+
+    if (final_state_mode == "etau"):
+       if (m_vis <=40): m_vis_idx = 1
+       else: m_vis_idx = int(m_vis // 20)
+    else: m_vis_idx = int(m_vis // 10) #hard-coding mvis bins of 10 GeV, starting at 0 and ending at 300 ( // is modulo division )
     f_QCD     = FF_mvis_weights[final_state_mode][jet_mode]["QCD"][m_vis_idx] if not closure else 1
     user_func = user_line if final_state_mode == "ditau" else user_exp
-    FF_QCD    = user_func(tau_pt, *QCD_fitvals)
+    #FF_QCD    = user_func(tau_pt, *QCD_fitvals)
+    FF_QCD    = user_line(tau_pt, *QCD_fitvals)
+
     if (final_state_mode != "ditau"): # else pass
       f_WJ       = FF_mvis_weights[final_state_mode][jet_mode]["WJ"][m_vis_idx] if not closure else 1
       FF_WJ      = user_func(tau_pt, *WJ_fitvals)
@@ -330,14 +339,13 @@ def add_FF_weights(event_dictionary, final_state_mode, jet_mode, semilep_mode, c
       if (final_state_mode != "ditau"):
         FF_weight += f_WJ * FF_WJ
     else: 
-      if   (semilep_mode == "QCD"):  FF_weight = f_QCD * FF_QCD
+      if   (semilep_mode == "QCD"):  FF_weight = f_QCD* FF_QCD
       elif (semilep_mode == "WJ"):   FF_weight = f_WJ  * FF_WJ
       else: print("add_FF_weights function error")
     if (FF_weight <= 0):
       print("non-positive FF weights!")
       print("FF_weight: ", FF_weight)
       print("tau_pt: ", tau_pt)
-      print("value from fit: ", user_func(lep_pt[l1_idx], *QCD_fitvals))
       print("m_vis, m_vis_idx: ", m_vis, m_vis_idx)
     FF_weights.append(FF_weight)
   event_dictionary["FF_weight"] = np.array(FF_weights)

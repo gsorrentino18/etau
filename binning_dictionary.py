@@ -162,7 +162,7 @@ binning_dictionary = {
   },
 
   "etau" : {
-    "FS_el_pt"   : np.linspace(0, 120, 40+1),
+    "FS_el_pt"   : np.linspace(20, 100, 49+1), #0, 120, 60+1
     "FS_el_eta"  : np.linspace(-3, 3, 30+1),
     "FS_el_phi"  : np.linspace(-3.2, 3.2, 32+1),
     "FS_el_iso"  : np.linspace(0, 1, 25+1),
@@ -170,7 +170,7 @@ binning_dictionary = {
     "FS_el_dz"   : np.linspace(0, 0.25, 50+1),
     "FS_el_chg"  : np.linspace(-2, 2, 5+1),
 
-    "FS_tau_pt"  : np.linspace(0, 180, 36+1),
+    "FS_tau_pt"  : np.linspace(20, 100, 49+1), #0, 180, 36+1
     "FS_tau_eta" : np.linspace(-3, 3, 30+1),
     "FS_tau_phi" : np.linspace(-3.2, 3.2, 32+1),
     "FS_tau_dxy" : np.linspace(0, 0.20, 50+1),

@@ -449,8 +449,8 @@ def adjust_scaling(final_state, process, scaling):
       "TTToSemiLeptonic" : 27,
     },
     "etau"  : {
-      "TTTo2L2Nu" : 9,
-      "TTToSemiLeptonic" : 19,
+      #"TTTo2L2Nu" : 1,
+      #"TTToSemiLeptonic" : 1,
     },
     "dimuon" : {
       "DYInc" : 6.482345 # for "New DiMuon DY", whatever that means :)
@@ -540,7 +540,8 @@ def get_binned_backgrounds(final_state, testing, background_dictionary, variable
   if "myQCD" in background_dictionary.keys(): # QCD is on bottom of stack since it is first called
     h_MC_by_family["myQCD"] = {}
     h_MC_by_family["myQCD"]["BinnedEvents"] = h_MC_by_process["myQCD"]["BinnedEvents"]
-    all_MC_families  = ["TT", "ST", "WJ", "VV", "DYInc", "DYIncNLO"] # far left is bottom of stack
+    h_MC_by_family["myQCD"]["BinnedErrors"] = h_MC_by_process["myQCD"]["BinnedErrors"]
+    all_MC_families  = ["TT", "ST", "WJ", "VV",  "DYInc", "DYIncNLO"] #giulia far left is bottom of stack
   else:
     all_MC_families  = ["QCD", "TT", "ST", "WJ", "VV", "DYInc", "DYIncNLO"]
   used_MC_families = []
@@ -647,7 +648,7 @@ def get_MC_weights(MC_dictionary, process):
   MuSF    = MC_dictionary[process]["MuSFweight"]
   ElSF    = MC_dictionary[process]["ElSFweight"]
   BTagSF  = MC_dictionary[process]["BTagSFfull"]
-  DY_Zpt  = MC_dictionary[process]["Weight_DY_Zpt"]
+  DY_Zpt  = MC_dictionary[process]["Weight_DY_Zpt_NLO"]
   TT_NNLO = MC_dictionary[process]["Weight_TTbar_NNLO"]
   full_weights = gen * PU * TauSF * MuSF * ElSF *\
                  BTagSF * DY_Zpt * TT_NNLO
@@ -728,10 +729,15 @@ def set_vars_to_plot(final_state_mode, jet_mode="none"):
   Shouldn't this be in  plotting functions?
   '''
   vars_to_plot = ["HTT_m_vis", "HTT_dR", "HTT_pT_l1l2", #"FastMTT_PUPPIMET_mT", 
-                  "FastMTT_mass",
-                  "PuppiMET_pt", "PuppiMET_phi", "PV_npvs", "HTT_mT_l1l2met_using_PUPPI_MET"]
-                  #"HTT_DiJet_MassInv_fromHighestMjj", "HTT_DiJet_dEta_fromHighestMjj"] 
-                  # common to all final states # add Tau_decayMode
+                  #giulia "FastMTT_mass",
+                  "PuppiMET_pt", "PuppiMET_phi", "PV_npvs"]
+ 
+#  vars_to_plot = ["HTT_m_vis", "HTT_dR", "HTT_pT_l1l2", #"FastMTT_PUPPIMET_mT", 
+#                  "FastMTT_mass",
+#                  "PuppiMET_pt", "PuppiMET_phi", "PV_npvs", "HTT_mT_l1l2met_using_PUPPI_MET"]
+#                  #"HTT_DiJet_MassInv_fromHighestMjj", "HTT_DiJet_dEta_fromHighestMjj"] 
+#                  # common to all final states # add Tau_decayMode
+#
   FS_vars_to_add = final_state_vars[final_state_mode]
   for var in FS_vars_to_add:
     vars_to_plot.append(var)

@@ -79,8 +79,8 @@ testing_file_map = {
   "WJetsInc"    : "WJ/WJetsToLNu_LO_HTauTau*",
   "WJetsIncNLO" : "WJ/WJetsToLNu_HTauTau*",
 
-  "VBF_TauTau"   : "Signal/VBF*",
-  "ggH_TauTau"   : "Signal/ggH*",
+  "VBF_TauTau"   : "Signal/VBF_TauTau_HTauTau*",
+  "ggH_TauTau"   : "Signal/ggH_TauTau_HTauTau_*",
 }
 
 
@@ -91,8 +91,9 @@ full_file_map = {
   "DataElectron" : "Data/EGamma_Run*",
   "DataEMu"  : "Data/MuonEG_Run*",
 
-  #"DYInc" : "DY/DYJetsToLL_M-50_LO_HTauTau*",
-  "DYInc" : "DY/DYJetsToLL_M-50_NLO_HTauTau*",
+  "DYInc" : "DY/DYJetsToLL_M-50_LO_HTauTau*",
+#  "DYInc" : "DY/DYJetsToLL_M-50_NLO_HTauTau*",
+
   #"DYJetsToLL_M-50_1J" : "DY/DYJetsToLL_M-50_1J*",
   #"DYJetsToLL_M-50_2J" : "DY/DYJetsToLL_M-50_2J*",
   #"DYJetsToLL_M-50_3J" : "DY/DYJetsToLL_M-50_3J*",
@@ -100,8 +101,7 @@ full_file_map = {
 
   "DYIncNLO" : "DY/DYJetsToLL_M-50_NLO_HTauTau*",
 
-  #"TTTo2L2Nu"         : "TT/TTTo2L2Nu*",
-  "TTTo2L2Nu"       : "TT/TTTo2L2Nu_HTauTau_2022postEE_Hlep_part17*",
+  "TTTo2L2Nu"         : "TT/TTTo2L2Nu*",
   "TTToFullyHadronic" : "TT/TTToFullyHadronic*",
   "TTToSemiLeptonic"  : "TT/TTToSemiLeptonic*",
 
@@ -117,6 +117,7 @@ full_file_map = {
   "ST_TWminus_LNu2Q"   : "ST/ST_TWminus_LNu2Q*",
 
   "WJetsInc"    : "WJ/WJetsToLNu_LO_HTauTau*",
+#  "WJetsInc" : "WJ/WJetsToLNu_HTauTau*",
   "WJetsIncNLO" : "WJ/WJetsToLNu_HTauTau*",
   #"WJetsIncNLO" : "WJ/WJetsToLNu_HTauTau*",
   #"WJetsToLNu_1J" : "WJ/W1JetsToLNu*",
@@ -157,6 +158,6 @@ full_file_map = {
   #"QCD_HT-1500to2000" : "QCD/QCD_HT1500to2000_HTauTau*",
   #"QCD_HT-2000"       : "QCD/QCD_HT2000toInf_HTauTau*",
 
-  "VBF_TauTau"   : "Signal/VBF*",
-  "ggH_TauTau"   : "Signal/ggH*",
+  "VBF_TauTau"   : "Signal/VBF_TauTau_HTauTau_*",
+  "ggH_TauTau"   : "Signal/ggH_TauTau_HTauTau_*",
 }

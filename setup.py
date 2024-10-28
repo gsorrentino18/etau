@@ -63,13 +63,8 @@ class setup_handler:
     #lxplus_redirector = "root://cms-xrd-global.cern.ch//"
     #eos_dir           = "/eos/user/b/ballmond/NanoTauAnalysis/analysis/"
     era_modifier_2022 = "preEE" if (("C" in era) or ("D" in era)) else "postEE"
-    #home_dir = "/Users/ballmond/LocalDesktop/HiggsTauTau" # there's no place like home :)
-    #home_dir = "/Users/nailaislam/htt/new_samples/Run3FSSplitSamples/"
-    home_dir = "/Users/nailaislam/htt/new_samples/Hlep/"
-    #active_dir = "/V12_PFRel_"+era_modifier_2022+"_nominal/"
-    #active_dir += final_state_mode
-    home_dir += final_state_mode
-    full_dir = home_dir #+ active_dir # add lxplus redirector if on eos
+    full_dir = "/Users/giuliasorrentino/Desktop/HLepRareNtuples/HTauTau_2022"+era_modifier_2022+"_Hlep_" + final_state_mode
+    #full_dir = "/Users/giuliasorrentino/Desktop/JulyNtuples/HTauTau_2022"+era_modifier_2022+"_step2_" + final_state_mode
     return full_dir
 
 

@@ -1,11 +1,12 @@
 def set_branches(final_state_mode, DeepTau_version, process="None"):
   common_branches = [
     "run", "luminosityBlock", "event", "Generator_weight", "NWEvents", "XSecMCweight",
-    "TauSFweight", "MuSFweight", "ElSFweight", "BTagSFfull", "Weight_DY_Zpt_LO", "Weight_DY_Zpt_NLO", "PUweight", "Weight_TTbar_NNLO",
+    "TauSFweight", "MuSFweight", "ElSFweight", "ElSFweight_Trig", "BTagSFfull", "Weight_DY_Zpt_LO", "Weight_DY_Zpt_NLO", "PUweight", "Weight_TTbar_NNLO",
     "FSLeptons", "Lepton_pt", "Lepton_eta", "Lepton_phi", "Lepton_iso",
     "Tau_genPartFlav", "Tau_decayMode",
     "nCleanJet", "CleanJet_pt", "CleanJet_eta", "CleanJet_phi", "CleanJet_mass",
     "HTT_m_vis", "HTT_dR", "HTT_pT_l1l2", "FastMTT_mT", "FastMTT_mass",
+    #"HTT_m_vis", "HTT_dR", "HTT_pT_l1l2",
     "HTT_pdgId",
     #"Tau_rawPNetVSjet", "Tau_rawPNetVSmu", "Tau_rawPNetVSe",
     "PV_npvs", "Pileup_nPU",
@@ -15,7 +16,7 @@ def set_branches(final_state_mode, DeepTau_version, process="None"):
   branches = add_final_state_branches(branches, final_state_mode)
   if final_state_mode != ["dimuon", "emu"]: branches = add_DeepTau_branches(branches, DeepTau_version)
   branches = add_trigger_branches(branches, final_state_mode)  
-  if ((final_state_mode == "emu" ) and ("Data" in process)): branches = add_FFweight_branch(branches)
+  if ((final_state_mode == "emu"  or final_state_mode == "etau") and ("Data" in process)): branches = add_FFweight_branch(branches)
   if ("DY" in process): branches = add_Zpt_branches(branches)
   return branches
 

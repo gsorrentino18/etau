@@ -65,7 +65,7 @@ MC_dictionary = {
 
   "VBF_TauTau" : {"XSec": XSec["VBF_TauTau"], "NWEvents": 2402853.147599998, 
            "label": "VBF", "color": color_dictionary["VBF"],
-           "plot_scaling" : 500},
+           "plot_scaling" : 100},
 
   # copies of DYInc with different colors and labels
   "DYGen"    : {"label": r"$Z{\rightarrow}{\tau_\mu}{\tau_h}$", "color": color_dictionary["DYGen"], "plot_scaling" : 1.12},
